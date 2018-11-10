@@ -9,70 +9,77 @@ class CalcCommandTest extends TestCase
     /**
      * @return void
      */
-    public function testCT001()
+    public function testSum()
     {
         $this->artisan('calc')
-             ->expectsQuestion('Digite sua operação matemática:','4+6')
+             ->expectsQuestion('Digite uma expressão matemática. (Ex: 2 + 3 / 5 * (2*5)','4+6')
              ->expectsOutput('10');
     }
 
     /**
      * @return void
      */
-    public function testCT002()
+    public function testSubtract()
     {
         $this->artisan('calc')
-             ->expectsQuestion('Digite sua operação matemática:','12-10')
+             ->expectsQuestion('Digite uma expressão matemática. (Ex: 2 + 3 / 5 * (2*5)','12-10')
              ->expectsOutput('2');
     }
 
     /**
      * @return void
      */
-    public function testCT003()
+    public function testMultiplication()
     {
         $this->artisan('calc')
-             ->expectsQuestion('Digite sua operação matemática:','35*3')
+             ->expectsQuestion('Digite uma expressão matemática. (Ex: 2 + 3 / 5 * (2*5)','35*3')
              ->expectsOutput('105');
     }
 
     /**
      * @return void
      */
-    public function testCT004()
+    public function testDivision()
     {
         $this->artisan('calc')
-             ->expectsQuestion('Digite sua operação matemática:','45/5')
+             ->expectsQuestion('Digite uma expressão matemática. (Ex: 2 + 3 / 5 * (2*5)','45/5')
              ->expectsOutput('9');
     }
 
     /**
      * @return void
      */
-    public function testCT005()
+    public function testDivisionByZero()
     {
         $this->artisan('calc')
-             ->expectsQuestion('Digite sua operação matemática:','7/0')
+             ->expectsQuestion('Digite uma expressão matemática. (Ex: 2 + 3 / 5 * (2*5)','7/0')
              ->expectsOutput('Impossível realizar divisão por zero');
     }
 
     /**
      * @return void
      */
-    public function testCT006()
+    public function testSumNegativeNumbers()
     {
         $this->artisan('calc')
-             ->expectsQuestion('Digite sua operação matemática:','-10+(-8)')
+             ->expectsQuestion('Digite uma expressão matemática. (Ex: 2 + 3 / 5 * (2*5)','-10+(-8)')
              ->expectsOutput('-18');
     }
 
     /**
      * @return void
      */
-    public function testCT007()
+    public function testSumNegativeAndPositiveNumbers()
     {
         $this->artisan('calc')
-             ->expectsQuestion('Digite sua operação matemática:','-12+3')
+             ->expectsQuestion('Digite uma expressão matemática. (Ex: 2 + 3 / 5 * (2*5)','-12+3')
              ->expectsOutput('-9');
+    }
+
+    public function testInvalidChar()
+    {
+         $this->artisan('calc')
+             ->expectsQuestion('Digite uma expressão matemática. (Ex: 2 + 3 / 5 * (2*5)',';')
+             ->expectsOutput('Valor inválido');
     }
 }

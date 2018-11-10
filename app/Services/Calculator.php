@@ -5,12 +5,22 @@ namespace App\Services;
 class Calculator {
     const PATTERN = '/(?:\-?\d+(?:\.?\d+)?[\+\-\*\/])+\-?\d+(?:\.?\d+)?/';
     const PARENTHESIS_DEPTH = 10;
+    
+    private $invalidValues = [';','&','?','%','$','#','@','\'','"','"','^','~','.',']','[','}','{','_','=','º'];
 
     public function calculate($input) {
-        if (strpos($input, '+') != null ||
-            strpos($input, '-') != null ||
-            strpos($input, '/') != null ||
-            strpos($input, '*') != null) {
+
+        foreach ($this->invalidValues as $value) {
+            if (str_contains($input, $value)) {
+                return 'Valor inválido';
+            }
+        }
+
+        if (str_contains($input, '+') ||
+            str_contains($input, '-') ||
+            str_contains($input, '/') ||
+            str_contains($input, '*')) {
+            
 
             if (strpos($input, '/')) {
                 $checkValues = explode('/', $input);
@@ -46,6 +56,8 @@ class Calculator {
             }
 
             return 0;
+        } else {
+            return 'Valor inválido';
         }
 
         return $input;
@@ -59,7 +71,7 @@ class Calculator {
         if(is_numeric($input[1])){
             return $input[1];
         }
-        elseif(preg_match(self::PATTERN, $input[1], $match)){
+        else if(preg_match(self::PATTERN, $input[1], $match)){
             return $this->compute($match[0]);
         }
 

@@ -29,7 +29,7 @@ class Calc extends Command
      */
     public function handle()
     {
-        $mathOperation = $this->ask('Digite sua operação matemática:');
+        $mathOperation = $this->ask('Digite uma expressão matemática. (Ex: 2 + 3 / 5 * (2*5)');
         $calculator = new Calculator();
         $this->info($calculator->calculate($mathOperation));
     }
